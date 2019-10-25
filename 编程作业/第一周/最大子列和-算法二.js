@@ -31,13 +31,14 @@ process.stdin.on('end', () => {
 function maxSubseqSum (num = 0, arr = []) {
     let maxSum = 0;
     for (let i = 0; i < arr.length; i++) {
+        let sum = 0;
         for (let j = i; j < arr.length; j++) {
-            let sum = 0
-            for (let k = i; k <= j; k++) {
-                sum += arr[k];
+            sum += arr[j];
+            if (sum < 0) {
+                sum = 0
             }
             if (sum > maxSum) {
-                maxSum = sum;
+                maxSum = sum
             }
         }
     }
