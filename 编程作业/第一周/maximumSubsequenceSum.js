@@ -45,47 +45,38 @@ rl.input.on('end', () => {
 });
 
 function maxSubseqSum (num = 0, list = []) {
-    let maxSum = 0;
+    let maxSum = -1;
     let sum = 0;
     let maxFirst = 0;
     let maxLast = 0;
     let negativeNum = 0;
     let fIndex = 0;
-    let maxFIndex = 0;
-    let maxLIndex = 0;
+    let maxFIndex = -1;
+    let maxLIndex = -1;
 
     for (let i = 0; i < list.length; i++) {
         sum += list[i];
-        // if (sum > maxSum) {
-        //     maxSum = sum;
-        //     maxFIndex = fIndex;
-        //     maxLIndex = i;
-        // }
-        if (sum >= maxSum) {
-            if (sum > maxSum) {
-                maxSum = sum;
-                maxFIndex = fIndex;
-                maxLIndex = i;
-            } else {
-                if (fIndex === maxFIndex) {
-                    maxLIndex = i;
-                }
-            }
+        if (sum > maxSum) {
+            maxSum = sum;
+            maxFIndex = fIndex;
+            maxLIndex = i;
         }
         if (sum < 0) {
             sum = 0;
             fIndex = i + 1;
         }
-        if (list[i] <= 0) {
+        if (list[i] < 0) {
             negativeNum++;
         }
     }
-    if (negativeNum > list.length) {
+
+    if (negativeNum === list.length) {
         maxSum = 0;
-        maxFIndex = 0;
-        maxLIndex = list.length - 1;
+        maxFirst = list[0];
+        maxLast = list[list.length - 1];
+    } else {
+        maxFirst = list[maxFIndex];
+        maxLast = list[maxLIndex];
     }
-    maxFirst = list[maxFIndex];
-    maxLast = list[maxLIndex];
     console.log(maxSum, maxFirst, maxLast);
 }
